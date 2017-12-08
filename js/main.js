@@ -6,15 +6,22 @@ var cars = document.querySelectorAll('.data-ref');
 const httpRequest = new XMLHttpRequest(); //handles all AJAX requests
 
 function changeElements(){
+	const url = '.includes/functions.php?carModel=' + this.id;
 	// Set up AJAX call
-	if(!httpRequest){
+	fetch(url) 
+  	.then((resp) => resp.json())
+  	.then((data) => {processResult(data); })
+ 	.catch(function(error) {
+    	console.log(error);
+    });
+	/*if(!httpRequest){
 		alert('Your browser is too old, sucks to suck');
 		return false;
 	}
 
 	httpRequest.onreadystatechange = processRequest;
 	httpRequest.open('GET', './includes/functions.php?carModel=' + this.id);
-	httpRequest.send();
+	httpRequest.send();*/
 }
 
 function processRequest() {
