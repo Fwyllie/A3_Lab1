@@ -1,6 +1,6 @@
 <?php
 	$user = 'root';
-	$pass = ''; // ON MAC $pass = 'root';
+	$pass = 'root'; // ON MAC $pass = 'root';
 	$host = 'localhost';
 	$db = "a3_cooperInfo";
 
@@ -15,24 +15,23 @@
 		exit;
 	}
 	//echo 'connected!';
-
-	$myQuery = 'SELECT * FROM mainmodel';
-	$results = mysqli_query($conn, $myQuery);
-	$rows = array();
-	while ($row = mysqli_fetch_assoc($results)){
-		$rows[] = $row;
+	if(isset($_GET['getVideos'])){
+		$myQuery = 'SELECT * FROM video';
+		$results = mysqli_query($conn, $myQuery);
+		$rows = array();
+		while ($row = mysqli_fetch_assoc($results)){
+			$rows[] = $row;
+		}
+		echo json_encode($rows); //show it on the page
 	}
-
-	//var_dump($rows); //puts on screen 
-	//echo json_encode($rows);
 
 	if(isset($_GET["carModel"])){
 		$car = $_GET["carModel"];
 
-	$myQuery = "SELECT * FROM mainmodel WHERE model = '$car'"; //select 1 car not 3 
+	$myQuery = "SELECT * FROM mainmodel WHERE model = '$car'"; //select 1 car not 3
 	$result = mysqli_query($conn, $myQuery); // store the result
-	$row =  mysqli_fetch_assoc($result);  // get the row 
-	echo json_encode($row); //show it on the page
+	$row =  mysqli_fetch_assoc($result);  // get the row
+	echo json_encode($row);
 
 	}
 ?>
